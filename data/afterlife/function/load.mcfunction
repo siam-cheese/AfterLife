@@ -4,7 +4,7 @@ scoreboard objectives add deathTrigger deathCount
 scoreboard objectives add hitMenAnim dummy
 scoreboard objectives add isHitMen dummy
 gamerule keepInventory true
-gamerule doImmediateRespawn true
+gamerule doImmediateRespawn false
 gamerule showDeathMessages false
 
 scoreboard objectives add numbers dummy

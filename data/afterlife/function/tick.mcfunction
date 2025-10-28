@@ -23,9 +23,7 @@ execute as @a[nbt={active_effects:[{"id":"minecraft:mining_fatigue","amplifier":
 
 
 # zombie revive logic
-execute as @a[scores={HLives=0}] run team join zombies @s
-execute as @a[scores={HLives=0}] run tellraw @s {"text": "You have lost your last life, you are now a zombie. Your ONLY allies and teamates are other zombies. Every 5 minutes any dead zombies will respawn.", "color": "dark_green"}
-execute as @a[scores={HLives=0}] run scoreboard players set @s HLives -2
+execute as @a[scores={HLives=0}] at @s run function afterlife:final_death
 execute as @a[scores={HLives=-2}] run gamemode spectator @s
 
 scoreboard players operation #reviveTimer numbers -= #1 numbers
@@ -52,7 +50,7 @@ execute as @a[tag=target,scores={deathTrigger=1..}] run tellraw @a[tag=hitMen] [
 execute as @a[tag=target,scores={deathTrigger=1..}] run tag @s remove target
 
 execute as @a[scores={hitMenAnim=2..}] run scoreboard players operation @s hitMenAnim -= #1 numbers
-title @a[scores={hitMenAnim=122}] times 20 100 20
+title @a[scores={hitMenAnim=122}] times 0 120 20
 title @a[scores={hitMenAnim=120}] title {"text":"You are.","color":"green"}
 title @a[scores={hitMenAnim=80}] title {"text":"You are..","color":"yellow"}
 title @a[scores={hitMenAnim=40}] title {"text":"You are...","color":"red"}
