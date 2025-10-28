@@ -1,0 +1,18 @@
+{
+    "display": {
+        "title": "Siamcheese",
+        "description": "",
+        "icon": {
+            "item": "minecraft:player_head",
+            "nbt": "{SkullOwner:{Name: \"Siamcheese\", Properties: {textures: [{Value: \"ewogICJ0aW1lc3RhbXAiIDogMTczNDE1MTEzMjEzNywKICAicHJvZmlsZUlkIiA6ICI0YmQ5Njc1NDQ4YWY0NTAxODk5ODg1YWZjMGMzMDBiMyIsCiAgInByb2ZpbGVOYW1lIiA6ICJTaWFtY2hlZXNlIiwKICAidGV4dHVyZXMiIDogewogICAgIlNLSU4iIDogewogICAgICAidXJsIiA6ICJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlL2VkOTJiN2RmZjNkMWMyYjBiYTNjYjFjYTJjNzEyNTk0OTM2YjljN2JjY2YxZGVjMDM5NDI5NDNmZGNlNGJjMTAiLAogICAgICAibWV0YWRhdGEiIDogewogICAgICAgICJtb2RlbCIgOiAic2xpbSIKICAgICAgfQogICAgfQogIH0KfQ==\"}]}}}"
+        },
+        "show_toast": false,
+        "announce_to_chat": false
+    },
+    "parent": "global:root",
+    "criteria": {
+        "trigger": {
+            "trigger": "minecraft:tick"
+        }
+    }
+}

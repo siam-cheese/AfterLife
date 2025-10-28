@@ -1,0 +1,64 @@
+
+
+# trigger start
+scoreboard players enable @a lifeCount
+scoreboard players enable @a withDrawLife
+scoreboard players enable @a[tag=hitMen] claimBoogeyKill
+
+execute as @a[scores={lifeCount=1..}] run function afterlife:get_life_count
+execute as @a[scores={withDrawLife=1..,HLives=..1}] run tellraw @s {"text":"You cannot withdraw your final life.","color": "red"}
+execute as @a[scores={withDrawLife=1..,HLives=2..}] at @s run function afterlife:withdraw_life
+
+execute as @a[scores={claimBoogeyKill=1..},tag=hitMen] at @s run function afterlife:hitmen_success
+
+scoreboard players set @a lifeCount 0
+scoreboard players set @a withDrawLife 0
+scoreboard players set @a claimBoogeyKill 0
+
+execute as @a[scores={HLives=0}] run scoreboard players set @s HLives -2
+execute as @a[scores={HLives=-2}] run gamemode spectator @s
+
+#trigger end
+
+execute as @a[nbt={active_effects:[{"id":"minecraft:mining_fatigue","amplifier":24b}]}] at @s run function afterlife:gain_life
+
+
+execute as @a[scores={deathTrigger=1..}] run scoreboard players operation @s HLives -= #1 numbers
+execute as @a[scores={deathTrigger=1..}] at @a run playsound block.end_gateway.spawn ambient @s ~ ~ ~ .5 1
+execute as @a[scores={deathTrigger=1..}] at @a run playsound block.bell.use ambient @s ~ ~ ~ .5 1
+
+#hitmen
+
+execute as @a[tag=target,scores={deathTrigger=1..}] run tellraw @a[tag=hitMen] ["",{"text":"The target "},{"selector":"@s"},{"text":" has been eliminated, if, and only if, this was your target, and you played a role in this death, are you allowed to do /trigger claimBoogeyKill and recieve your prize "}]
+execute as @a[tag=target,scores={deathTrigger=1..}] run tag @s remove target
+
+execute as @a[scores={hitMenAnim=2..}] run scoreboard players operation @s hitMenAnim -= #1 numbers
+title @a[scores={hitMenAnim=122}] times 20 100 20
+title @a[scores={hitMenAnim=120}] title {"text":"You are.","color":"green"}
+title @a[scores={hitMenAnim=80}] title {"text":"You are..","color":"yellow"}
+title @a[scores={hitMenAnim=40}] title {"text":"You are...","color":"red"}
+
+execute as @a[scores={hitMenAnim=120}] at @s run playsound ui.button.click ambient @s ~ ~ ~
+execute as @a[scores={hitMenAnim=80}] at @s run playsound ui.button.click ambient @s ~ ~ ~
+execute as @a[scores={hitMenAnim=40}] at @s run playsound ui.button.click ambient @s ~ ~ ~
+execute as @a[scores={hitMenAnim=20}] at @s run playsound entity.warden.sonic_charge ambient @s ~ ~ ~ .5 2
+
+
+execute as @a[scores={hitMenAnim=3}] store result score @s isHitMen run random value 1..2
+
+execute as @a[scores={hitMenAnim=3,isHitMen=1}] at @s run function afterlife:hitmen_select
+execute as @a[scores={hitMenAnim=3,isHitMen=2..}] run title @s title {"text":"Innocent","color":"green"}
+execute as @a[scores={hitMenAnim=3,isHitMen=2..}] at @s run playsound block.amethyst_block.break ambient @s ~ ~ ~ 1 .7
+
+
+
+
+
+scoreboard players reset @a deathTrigger
+
+
+
+
+
+
+
