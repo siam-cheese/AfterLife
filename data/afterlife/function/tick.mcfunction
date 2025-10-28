@@ -1,4 +1,6 @@
 
+#count deaths
+execute as @a[scores={deathTrigger=1..}] run scoreboard players operation @s HLives -= #1 numbers
 
 # trigger start
 scoreboard players enable @a lifeCount
