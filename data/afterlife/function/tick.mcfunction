@@ -23,16 +23,16 @@ execute as @a[nbt={active_effects:[{"id":"minecraft:mining_fatigue","amplifier":
 
 # zombie revive logic
 execute as @a[scores={HLives=0}] run team join zombies @s
-execute as @a[scores={Hlives=0}] run tellraw @s {"text": "You have lost your last life, you are now a zombie. Your ONLY allies and teamates are other zombies. Every 5 minutes any dead zombies will respawn", "color": "dark_green"}
+execute as @a[scores={HLives=0}] run tellraw @s {"text": "You have lost your last life, you are now a zombie. Your ONLY allies and teamates are other zombies. Every 5 minutes any dead zombies will respawn.", "color": "dark_green"}
 execute as @a[scores={HLives=0}] run scoreboard players set @s HLives -2
 execute as @a[scores={HLives=-2}] run gamemode spectator @s
 
 scoreboard players operation #reviveTimer numbers -= #1 numbers
 scoreboard players operation @a[scores={HLives=-2}] zombieTimer = #reviveTimer numbers
-scoreboard players operation @a[scores={HLives=-2}] zombieTimer %= #20 numbers
+scoreboard players operation @a[scores={HLives=-2}] zombieTimer /= #20 numbers
 execute as @a[scores={HLives=-2}] run title @s actionbar [{"score":{"name":"@s","objective":"zombieTimer"},"color":"gray"},{"text": " seconds until revive.","color": "gray"}]
 
-execute if score #reviveTimer numbers matches 0 run function afterlife:revive
+execute if score #reviveTimer numbers matches ..0 run function afterlife:revive
 
 effect give @a[team=zombies] weakness 5 1 true
 

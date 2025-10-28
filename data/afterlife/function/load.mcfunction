@@ -14,7 +14,7 @@ scoreboard players set #20 numbers 20
 scoreboard objectives add zombieTimer dummy
 scoreboard players set spinRate numbers 1
 
-scoreboard players set #reviveTimer numbers 6000
+scoreboard players set #reviveTimer numbers 60
 
 scoreboard objectives add lifeCount trigger
 scoreboard objectives add withDrawLife trigger
