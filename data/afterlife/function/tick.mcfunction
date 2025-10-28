@@ -9,7 +9,7 @@ execute as @a[scores={lifeCount=1..}] run function afterlife:get_life_count
 execute as @a[scores={withDrawLife=1..,HLives=..1}] run tellraw @s {"text":"You cannot withdraw your final life.","color": "red"}
 execute as @a[scores={withDrawLife=1..,HLives=2..}] at @s run function afterlife:withdraw_life
 
-execute as @a[scores={claimBoogeyKill=1..},tag=hitMen] at @s run function afterlife:hitmen_success
+execute as @a[scores={claimBoogeyKill=1..},tag=hitMen] at @s run function afterlife:boogey_success
 
 scoreboard players set @a lifeCount 0
 scoreboard players set @a withDrawLife 0
@@ -27,7 +27,7 @@ execute as @a[scores={HLives=-2}] run gamemode spectator @s
 scoreboard players operation #reviveTimer numbers -= #1 numbers
 scoreboard players operation @a[scores={HLives=-2}] zombieTimer = #reviveTimer numbers
 scoreboard players operation @a[scores={HLives=-2}] zombieTimer %= #20 numbers
-execute as @a[scores={HLives=-2}] run title @s actionbar {"score":{"name":"@s","objective":"zombieTimer"},"color":"dark_green"}
+execute as @a[scores={HLives=-2}] run title @s actionbar [{"score":{"name":"@s","objective":"zombieTimer"},"color":"gray"},{"text": " seconds until revive.","color": "gray"}]
 
 execute if score #reviveTimer numbers matches 0 run function afterlife:revive
 
@@ -62,7 +62,7 @@ execute as @a[scores={hitMenAnim=20}] at @s run playsound entity.warden.sonic_ch
 execute as @a[scores={hitMenAnim=3}] store result score @s isHitMen run random value 1..2
 execute as @a[scores={hitMenAnim=3,HLives=..1}] run scoreboard players set @s isHitMen 2
 
-execute as @a[scores={hitMenAnim=3,isHitMen=1}] at @s run function afterlife:hitmen_select
+execute as @a[scores={hitMenAnim=3,isHitMen=1}] at @s run function afterlife:boogey_select
 execute as @a[scores={hitMenAnim=3,isHitMen=2..}] run title @s title {"text":"NOT the boogeyman","color":"green"}
 execute as @a[scores={hitMenAnim=3,isHitMen=2..}] at @s run playsound block.amethyst_block.break ambient @s ~ ~ ~ 1 .7
 #hitmen end
