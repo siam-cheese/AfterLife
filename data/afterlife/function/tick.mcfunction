@@ -33,7 +33,7 @@ execute as @a[scores={HLives=-2}] run title @s actionbar [{"score":{"name":"@s",
 
 execute if score #reviveTimer numbers matches ..0 run function afterlife:revive
 
-effect give @a[team=zombies] weakness 5 1 true
+effect give @a[team=zombies] weakness 5 0 true
 
 #zombie end logic
 
