@@ -15,17 +15,32 @@ scoreboard players set @a lifeCount 0
 scoreboard players set @a withDrawLife 0
 scoreboard players set @a claimBoogeyKill 0
 
+execute as @a[nbt={active_effects:[{"id":"minecraft:mining_fatigue","amplifier":24b}]}] at @s run function afterlife:gain_life
+#trigger end
+
+
+# zombie revive logic
+execute as @a[scores={HLives=0}] run team join zombies @s
 execute as @a[scores={HLives=0}] run scoreboard players set @s HLives -2
 execute as @a[scores={HLives=-2}] run gamemode spectator @s
 
-#trigger end
+scoreboard players operation #reviveTimer numbers -= #1 numbers
+scoreboard players operation @a[scores={HLives=-2}] zombieTimer = #reviveTimer numbers
+scoreboard players operation @a[scores={HLives=-2}] zombieTimer %= #20 numbers
+execute as @a[scores={HLives=-2}] run title @s actionbar {"score":{"name":"@s","objective":"zombieTimer"},"color":"dark_green"}
 
-execute as @a[nbt={active_effects:[{"id":"minecraft:mining_fatigue","amplifier":24b}]}] at @s run function afterlife:gain_life
+execute if score #reviveTimer numbers matches 0 run function afterlife:revive
 
+effect give @a[team=zombies] weakness 5 1 true
 
-execute as @a[scores={deathTrigger=1..}] run scoreboard players operation @s HLives -= #1 numbers
-execute as @a[scores={deathTrigger=1..}] at @a run playsound block.end_gateway.spawn ambient @s ~ ~ ~ .5 1
-execute as @a[scores={deathTrigger=1..}] at @a run playsound block.bell.use ambient @s ~ ~ ~ .5 1
+#zombie end logic
+
+#team/life color
+team join life4plus @a[scores={HLives=4..}]
+team join life3 @a[scores={HLives=3}]
+team join life2 @a[scores={HLives=2}]
+team join life1 @a[scores={HLives=1}]
+#*team color end
 
 #hitmen
 
@@ -45,11 +60,12 @@ execute as @a[scores={hitMenAnim=20}] at @s run playsound entity.warden.sonic_ch
 
 
 execute as @a[scores={hitMenAnim=3}] store result score @s isHitMen run random value 1..2
+execute as @a[scores={hitMenAnim=3,HLives=..1}] run scoreboard players set @s isHitMen 2
 
 execute as @a[scores={hitMenAnim=3,isHitMen=1}] at @s run function afterlife:hitmen_select
-execute as @a[scores={hitMenAnim=3,isHitMen=2..}] run title @s title {"text":"Innocent","color":"green"}
+execute as @a[scores={hitMenAnim=3,isHitMen=2..}] run title @s title {"text":"NOT the boogeyman","color":"green"}
 execute as @a[scores={hitMenAnim=3,isHitMen=2..}] at @s run playsound block.amethyst_block.break ambient @s ~ ~ ~ 1 .7
-
+#hitmen end
 
 
 
