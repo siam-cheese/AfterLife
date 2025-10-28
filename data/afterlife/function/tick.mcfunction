@@ -17,7 +17,8 @@ scoreboard players set @a lifeCount 0
 scoreboard players set @a withDrawLife 0
 scoreboard players set @a claimBoogeyKill 0
 
-execute as @a[nbt={active_effects:[{"id":"minecraft:mining_fatigue","amplifier":24b}]}] at @s run function afterlife:gain_life
+execute as @a[nbt={active_effects:[{"id":"minecraft:mining_fatigue","amplifier":24b}]},scores={HLives=1..}] at @s run function afterlife:gain_life
+execute as @a[nbt={active_effects:[{"id":"minecraft:mining_fatigue","amplifier":24b}]},scores={HLives=..0}] at @s run tellraw @s {"text": "Yummy!", "color": "gold"}
 #trigger end
 
 
