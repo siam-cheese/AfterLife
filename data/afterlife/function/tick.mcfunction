@@ -61,12 +61,13 @@ execute as @a[scores={hitMenAnim=40}] at @s run playsound ui.button.click ambien
 execute as @a[scores={hitMenAnim=20}] at @s run playsound entity.warden.sonic_charge ambient @s ~ ~ ~ .5 2
 
 
-execute as @a[scores={hitMenAnim=3}] store result score @s isHitMen run random value 1..2
-execute as @a[scores={hitMenAnim=3,HLives=..1}] run scoreboard players set @s isHitMen 2
+execute as @a[scores={hitMenAnim=3}] store result score @s isHitMen run random value 1..100
 
-execute as @a[scores={hitMenAnim=3,isHitMen=1}] at @s run function afterlife:boogey_select
-execute as @a[scores={hitMenAnim=3,isHitMen=2..}] run title @s title {"text":"NOT the boogeyman","color":"green"}
-execute as @a[scores={hitMenAnim=3,isHitMen=2..}] at @s run playsound block.amethyst_block.break ambient @s ~ ~ ~ 1 .7
+execute as @a[scores={hitMenAnim=3,HLives=..1}] run scoreboard players set @s isHitMen 101
+
+execute as @a[scores={hitMenAnim=3}] if score @s isHitMen <= #boogeyChance numbers at @s run function afterlife:boogey_select
+execute as @a[scores={hitMenAnim=3}] if score @s isHitMen > #boogeyChance numbers run title @s title {"text":"NOT the boogeyman","color":"green"}
+execute as @a[scores={hitMenAnim=3}] if score @s isHitMen > #boogeyChance numbers at @s run playsound block.amethyst_block.break ambient @s ~ ~ ~ 1 .7
 #hitmen end
 
 
